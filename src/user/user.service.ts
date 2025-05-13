@@ -1,16 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { randomUUID } from 'crypto';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async create(name: string) {
-    const user = {
-      id: randomUUID(),
-      name,
-      createdAt: new Date().toISOString(),
-    };
+  constructor(private readonly userRepository: UserRepository) {}
 
-    return user;
+  create(name: string) {
+    return this.userRepository.create(name);
   }
 }
